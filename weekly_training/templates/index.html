@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    <title>weekly-tng.Главная</title>
+    {% load staticfiles %}
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js'></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1 col-md-offset-9">
+                Привет, {{ request.user.username }}!
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-danger">
+                    Выход
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="nav nav-pills nav-stacked" id="Tabs">
+                    <li class="active"><a href="#home">Текущая неделя</a></li>
+                    <li><a href="#trainings">Тренировки</a></li>
+                    <li><a href="#info">О сервисе</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        Нечего показывать
+                    </div>
+                    <div class="tab-pane" id="trainings">
+                        Нечего показывать
+                    </div>
+                    <div class="tab-pane" id="info">
+                        Ничего
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#Tabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    </script>
+{% endblock %}
