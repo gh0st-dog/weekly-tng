@@ -32,7 +32,38 @@
                         Нечего показывать
                     </div>
                     <div class="tab-pane" id="trainings">
-                        Нечего показывать
+                        <div class="row">
+                           <div class="col-md-5 col-md-offset-1">
+                               <form action="/training/"
+                                     role="form"
+                                     method="post">
+                                   {% csrf_token %}
+                                   <div class="form-group">
+                                       <input type="text"
+                                               class="form-control"
+                                               placeholder="Название"
+                                               id="name"
+                                               name="name"
+                                               required
+                                               autofocus
+                                               />
+                                   </div>
+                                   <div class="form-group">
+                                       <input type="text"
+                                               class="form-control"
+                                               placeholder="Цель"
+                                               id="goal"
+                                               name="goal"
+                                               required
+                                               autofocus
+                                               />
+                                   </div>
+                                   <input type="submit"
+                                           class="btn btn-success btn-block"
+                                           value="Добавить"/>
+                               </form>
+                           </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="info">
                         Ничего
