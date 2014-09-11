@@ -1,14 +1,18 @@
-{% extends "base.html" %}
+<%inherit file='base.html' />
 
-{% block extrahead %}
+<%block name='extrahead'>
     <title>weekly-tng.Главная</title>
-    {% load staticfiles %}
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js'></script>
-{% endblock %}
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.js"></script>
+    <script src="/static/js/ng-grid-2.0.1.min.js"></script>
+    <script src="/static/js/app.js"></script>
+    <link rel="stylesheet" href="/static/css/custom.css">
+</%block>
 
-{% block content %}
-    <div class="container">
+<%block name='content'>
+    <div class="container" ng-app="MainApp">
         <div class="row">
+
             <div class="col-md-1 col-md-offset-9">
                 Привет, {{ request.user.username }}!
             </div>
@@ -31,13 +35,20 @@
                     <div class="tab-pane active" id="home">
                         Нечего показывать
                     </div>
-                    <div class="tab-pane" id="trainings">
+                    <div class="tab-pane" id="trainings" ng-controller="TngGreed">
+                        <div class="row">
+                            <div class="col-md-5 col-md-offset-1">
+                                 <div ng-grid="gridOptions" class="gridStyle"></div>
+                            </div>
+                        </div>
                         <div class="row">
                            <div class="col-md-5 col-md-offset-1">
                                <form action="/training/"
                                      role="form"
                                      method="post">
-                                   {% csrf_token %}
+                                   <input type="text" value="${xsrf}"
+                                          name="_xsrf" id="_xsrf"
+                                          hidden/>
                                    <div class="form-group">
                                        <input type="text"
                                                class="form-control"
@@ -77,6 +88,7 @@
         $('#Tabs a').click(function (e) {
             e.preventDefault()
             $(this).tab('show')
-        })
+        });
+
     </script>
-{% endblock %}
+</%block>
