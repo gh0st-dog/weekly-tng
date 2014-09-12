@@ -2,6 +2,7 @@ __author__ = 'buyvich'
 
 from pprint import pprint
 import logging
+import json
 
 from tornado.web import RequestHandler
 
@@ -26,17 +27,22 @@ class IndexHandler(BaseHandler):
 class TrainingHandler(BaseHandler):
 
     def get(self):
-
+        pprint(self.request)
+        callback = self.get_argument('callback')
         trainings = self.session.query(Training).all()
-        pprint(trainings)
-        self.write('OK')
+        result = []
+        for training in trainings:
+            result.append(training.to_dict())
+        self.set_header('Content-Type', 'application/json')
+        self.write('%s(%s)' % (callback, json.dumps(result)))
 
     def post(self):
         user = self.session.query(User).first()
         pprint(self.request.body_arguments)
         name = self.get_argument('name')
         goal = self.get_argument('goal')
-        tng = Training(name=name, goal=goal, user=user)
+        tng_type = self.get_argument('tng_type')
+        tng = Training(name=name, goal=goal, user=user, tng_type=tng_type)
         self.session.add(tng)
         self.session.commit()
         self.write('OK')

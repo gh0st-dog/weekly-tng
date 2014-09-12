@@ -14,25 +14,32 @@ app.config(function($interpolateProvider, $httpProvider) {
 app.controller("TngGreed", ["$scope", "$http", "$route", function($scope, $http){
 
     $scope.trainings = [];
-    $scope.myData = [{name: "Moroni", age: 50},
-                 {name: "Tiancum", age: 43},
-                 {name: "Jacob", age: 27},
-                 {name: "Nephi", age: 29},
-                 {name: "Enos", age: 34}];
 
-    $scope.gridOptions = { data: 'myData' };
+    $scope.gridOptions = {
+        data: 'trainings',
+        columnDefs: [
+            {field:'name', displayName:'Название'},
+            {field:'goal', displayName:'Цель'},
+            {field: 'tng_type', displayName: 'Тип'}
+        ],
+        showFooter: true,
+        resizable: true,
+        enablePinning: true
+    };
 
 
 
     $scope.loadTrainings = function(){
-        $http.get('http://localhost:8000/training').
+        $http.jsonp('http://localhost:8080/training/?callback=JSON_CALLBACK').
             success(function(data){
-                $scope.trainings = angular.fromJson(data);
-                //$scope.gridOptions = { data: $scope.trainings};
+                $scope.trainings = data;
+            })
+            .error(function(){
+                console.error('got error');
             });
     };
 
-    //$scope.loadTrainings();
+    $scope.loadTrainings();
 
 
 }]);
