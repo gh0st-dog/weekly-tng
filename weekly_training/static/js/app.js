@@ -31,7 +31,8 @@ function TngGreed($scope, $http){
 
 
     $scope.loadTrainings = function(){
-        $http.jsonp('http://localhost:8080/training/?callback=JSON_CALLBACK').
+        console.debug('initialize all trainings list');
+        $http.jsonp('http://ec2-54-68-230-64.us-west-2.compute.amazonaws.com/training/?callback=JSON_CALLBACK').
             success(function(data){
                 $scope.trainings = data;
             })
@@ -40,6 +41,7 @@ function TngGreed($scope, $http){
             });
     };
 
+    console.debug('initialize trainings ctrl');
     $scope.loadTrainings();
 }
 
@@ -62,7 +64,8 @@ function CurrentWeek($scope, $http){
 
 
     $scope.loadTrainings = function(){
-        $http.jsonp('http://localhost:8080/training/?callback=JSON_CALLBACK').
+        console.debug('initialize trainings list');
+        $http.jsonp('http://ec2-54-68-230-64.us-west-2.compute.amazonaws.com/training/?callback=JSON_CALLBACK').
             success(function(data){
                 $scope.trainings = data;
             })
@@ -71,5 +74,6 @@ function CurrentWeek($scope, $http){
             });
     };
 
+    console.debug('initialize week ctrl');
     $scope.loadTrainings();
 }
