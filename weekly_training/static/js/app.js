@@ -10,7 +10,7 @@ angular
         $httpProvider.defaults.xsrfCookieName = '_xsrf';
     })
     .controller("TngGreed", ["$scope", "$http", "$route", TngGreed])
-    .controller("TngGreed", ["$scope", "$http", "$route", CurrentWeek]);
+    .controller("CurrentWeek", ["$scope", "$http", "$route", CurrentWeek]);
 
 function TngGreed($scope, $http){
 
@@ -32,9 +32,9 @@ function TngGreed($scope, $http){
 
     $scope.loadTrainings = function(){
         console.debug('initialize all trainings list');
-        $http.jsonp('http://ec2-54-68-230-64.us-west-2.compute.amazonaws.com/training/?callback=JSON_CALLBACK').
+        $http.get('/training/').
             success(function(data){
-                $scope.trainings = data;
+                $scope.trainings = angular.fromJson(data);
             })
             .error(function(){
                 console.error('got error');
@@ -57,17 +57,17 @@ function CurrentWeek($scope, $http){
             {field: 'tng_type', displayName: 'Тип'}
         ],
         showFooter: true,
-        resizable: true,
-        enablePinning: true
+        resizable: true
     };
 
 
 
     $scope.loadTrainings = function(){
         console.debug('initialize trainings list');
-        $http.jsonp('http://ec2-54-68-230-64.us-west-2.compute.amazonaws.com/training/?callback=JSON_CALLBACK').
+        console.debug($http.defaults);
+        $http.get('/training/').
             success(function(data){
-                $scope.trainings = data;
+                $scope.trainings = angular.fromJson(data);
             })
             .error(function(){
                 console.error('got error');

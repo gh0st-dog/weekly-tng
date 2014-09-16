@@ -13,9 +13,13 @@ import handlers
 def make_app():
     return Application(
         [url(r'/', handlers.IndexHandler),
-         url(r'/training/', handlers.TrainingHandler)],
+         url(r'/training/', handlers.TrainingHandler),
+         url(r'/login/', handlers.LoginHandler),
+         url(r'/logout/', handlers.LogoutHandler),
+         ],
         debug=True,
         static_path=STATIC_PATH,
+        cookie_secret='5f23aa988ab6c68206377cd6ee1edcee921b2365',
     )
 
 
