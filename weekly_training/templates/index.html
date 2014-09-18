@@ -50,9 +50,8 @@
                         </div>
                         <div class="row">
                            <div class="col-md-5 col-md-offset-1">
-                               <form action="/training/"
-                                     role="form"
-                                     method="post">
+                               <form ng-submit="addTraining()"
+                                       >
                                    <input type="text" value="${xsrf}"
                                           name="_xsrf" id="_xsrf"
                                           hidden/>
@@ -60,28 +59,29 @@
                                        <input type="text"
                                                class="form-control"
                                                placeholder="Название"
-                                               id="name"
+                                               ng-model="trainingForm.name"
                                                name="name"
                                                required
                                                autofocus
-                                               />
+                                               >
                                    </div>
                                    <div class="form-group">
                                        <input type="text"
                                                class="form-control"
                                                placeholder="Цель"
-                                               id="goal"
+                                               ng-model="trainingForm.goal"
                                                name="goal"
                                                required
-                                               />
+                                               >
                                    </div>
                                    <div class="form-group">
                                        <select
                                                class="form-control"
-                                               id="tng_type"
-                                               name="tng_type">
+                                               ng-model="trainingForm.units"
+                                               name="units">
                                            <option value="repetition">Повторения</option>
-                                           <option value="bool">Да/Нет</option>
+                                           <option value="day">День(Да/Нет)</option>
+                                           <option value="km">Метры</option>
                                        </select>
                                    </div>
                                    <input type="submit"

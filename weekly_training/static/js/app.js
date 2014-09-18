@@ -15,20 +15,20 @@ angular
 function TngGreed($scope, $http){
 
     $scope.trainings = [];
+    $scope.trainingForm = {};
 
     $scope.gridOptions = {
         data: 'trainings',
         columnDefs: [
             {field:'name', displayName:'Название'},
             {field:'goal', displayName:'Цель'},
-            {field: 'tng_type', displayName: 'Тип'}
+            {field: 'units', displayName: 'Единицы измерения'}
         ],
         showFooter: true,
-        resizable: true,
-        enablePinning: true
+        enableCellSelection: true,
+        enableRowSelection: false,
+        enableCellEdit: true
     };
-
-
 
     $scope.loadTrainings = function(){
         console.debug('initialize all trainings list');
@@ -39,6 +39,11 @@ function TngGreed($scope, $http){
             .error(function(){
                 console.error('got error');
             });
+    };
+
+    $scope.addTraining = function() {
+        console.log("--> Submitting form");
+        $http.post('/training/', $scope.trainingForm, {});
     };
 
     console.debug('initialize trainings ctrl');
@@ -57,7 +62,9 @@ function CurrentWeek($scope, $http){
             {field: 'tng_type', displayName: 'Тип'}
         ],
         showFooter: true,
-        resizable: true
+        enableCellSelection: true,
+        enableRowSelection: false,
+        enableCellEdit: true
     };
 
 

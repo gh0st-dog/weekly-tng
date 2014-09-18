@@ -73,11 +73,10 @@ class TrainingHandler(BaseHandler):
     def post(self):
         user = self.get_current_user()
         pprint(self.request.body_arguments)
-        name = self.get_argument('name')
-        goal = self.get_argument('goal')
-        tng_type = self.get_argument('tng_type')
-        tng = Training(name=name, goal=goal,
-                       user=user, tng_type=tng_type)
+        pprint(self.request.body)
+        data = json.loads(self.request.body)
+        tng = Training(name=data['name'], goal=data['goal'],
+                       user=user, units=data['units'])
         self.session.add(tng)
         self.session.commit()
         self.write('OK')
@@ -97,12 +96,6 @@ class LoginHandler(BaseHandler):
                 User.login == login,
                 User.password == password).one()
         except sqlalchemy.orm.exc.NoResultFound:
-            '''
-            user = User(login=login,
-                        password=password)
-            self.session.add(user)
-            self.session.commit()
-            '''
             self.redirect('/login/')
         self.set_secure_cookie('user', login)
         self.redirect('/')
